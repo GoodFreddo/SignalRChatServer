@@ -2,7 +2,7 @@
 ## A learning project
 
 The purpose of this project is to explore and get familiar with SignalR and asynchronous C# development.
-The base for this build is taken from the page [Get started with ASP.NET Core SignalR]https://docs.microsoft.com/en-gb/aspnet/core/tutorials/signalr?tabs=visual-studio&view=aspnetcore-2.2
+The base for this build is taken from the page [Get started with ASP.NET Core SignalR](https://docs.microsoft.com/en-gb/aspnet/core/tutorials/signalr?tabs=visual-studio&view=aspnetcore-2.2)
 
 Things I want to add to this base application:
 * Chat persistance on load
