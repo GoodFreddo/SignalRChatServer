@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SignalRChatServer.Hubs;
+using SignalRChatServer.Singletons;
 
 namespace SignalRChatServer
 {
@@ -32,6 +33,7 @@ namespace SignalRChatServer
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR();
+            services.AddSingleton<IChatDictionarySingleton,ChatDictionarySingleton>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +53,7 @@ namespace SignalRChatServer
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chatHub");
