@@ -5,19 +5,20 @@ using System.Threading.Tasks;
 
 namespace SignalRChatServer.Singletons
 {
-    public interface IChatDictionarySingleton {
-        void AddMessage(string username, string message);
-        Dictionary<string, string> GetAllMessages();
+    public interface IChatListSingleton {
+        void AddMessage(Message message);
+        List<Message> GetAllMessages();
     }
-    public class ChatDictionarySingleton : IChatDictionarySingleton
+    public class ChatListSingleton : IChatListSingleton
     {
-        Dictionary<string, string> chatHistory = new Dictionary<string, string>() ;
+        List<Message> chatHistory = new List<Message>();
 
-        public void AddMessage(string username, string message)
+        public void AddMessage(Message message)
         {
-            chatHistory.Add(username, message);
+            chatHistory.Add(message);
         }
-        public Dictionary<string, string> GetAllMessages()
+
+        public List<Message> GetAllMessages()
         {
             return chatHistory;
         }

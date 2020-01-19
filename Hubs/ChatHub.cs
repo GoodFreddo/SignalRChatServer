@@ -9,18 +9,24 @@ namespace SignalRChatServer.Hubs
 {
     public class ChatHub : Hub
     {
-        private readonly IChatDictionarySingleton _chatDictionarySingleton;
-        public ChatHub(IChatDictionarySingleton chatDictionarySingleton) {
+        private readonly IChatListSingleton _chatDictionarySingleton;
+        public ChatHub(IChatListSingleton chatDictionarySingleton)
+        {
             _chatDictionarySingleton = chatDictionarySingleton;
         }
         public async Task SendMessage(string user, string message)
         {
-            _chatDictionarySingleton.AddMessage(user,message);
+            _chatDictionarySingleton.AddMessage(new Message(user, message));
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
-        public async Task GetHistory() {
-            await Clients.Caller.SendAsync("RecieveHistory", _chatDictionarySingleton.GetAllMessages().ToString());
+
+        public async Task GetHistory()
+        {
+            foreach (var message in _chatDictionarySingleton.GetAllMessages())
+            {
+                await Clients.Caller.SendAsync("RecieveHistory", message.UserName, message.MessageText);
+            }
         }
-        
+
     }
 }
