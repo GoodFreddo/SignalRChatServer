@@ -12,20 +12,23 @@ connection.on("ReceiveMessage", function (user, message) {
     li.textContent = encodedMsg;
     document.getElementById("messagesList").appendChild(li);
 });
-connection.on("RecieveHistory", function (user, message) {
-    var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    var encodedMsg = user + " says " + msg;
-    var li = document.createElement("li");
-    li.textContent = encodedMsg;
-    document.getElementById("messagesList").appendChild(li);
-});
+//connection.on("RecieveHistory", function (user, message) {
+//    var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+//    var encodedMsg = user + " says " + msg;
+//    var li = document.createElement("li");
+//    li.textContent = encodedMsg;
+//    document.getElementById("messagesList").appendChild(li);
+//});
 
 connection.start().then(function () {
-    connection.invoke("GetHistory").catch(function (err) {
-        console.log("it fucked up boiz");
+    var resultReturned;
+    const messageHistory = connection.invoke("GetHistory").then(result => { resultReturned = result }).catch(function (err) {
         return console.error(err.toString());
     });
     
+    var att1 = messageHistory;
+    var att2 = resultReturned;
+    debugger
     document.getElementById("sendButton").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
