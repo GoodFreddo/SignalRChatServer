@@ -20,12 +20,10 @@ namespace SignalRChatServer.Hubs
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
 
-        public async Task GetHistory()
+        public Message[] GetHistory()
         {
-            foreach (var message in _chatDictionarySingleton.GetAllMessages())
-            {
-                await Clients.Caller.SendAsync("RecieveHistory", message.UserName, message.MessageText);
-            }
+           
+           return _chatDictionarySingleton.GetAllMessages().ToArray();
         }
 
     }
