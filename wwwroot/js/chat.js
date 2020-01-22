@@ -1,40 +1,39 @@
 ﻿"use strict";
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-
+var resultReturned;
 //Disable send button until connection is established
 document.getElementById("sendButton").disabled = true;
 
 connection.on("ReceiveMessage", function (user, message) {
     var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    var encodedMsg = user + " says " + msg;
+    var encodedMsg = user + ": " + msg;
     var li = document.createElement("li");
     li.textContent = encodedMsg;
     document.getElementById("messagesList").appendChild(li);
 });
-//connection.on("RecieveHistory", function (user, message) {
-//    var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-//    var encodedMsg = user + " says " + msg;
-//    var li = document.createElement("li");
-//    li.textContent = encodedMsg;
-//    document.getElementById("messagesList").appendChild(li);
-//});
 
-connection.start().then(function () {
-    var resultReturned;
-    const messageHistory = connection.invoke("GetHistory").then(result => { resultReturned = result }).catch(function (err) {
+
+connection.start().then(async function () {
+    connection.invoke("GetHistory").then(result => populateHistory(result)).catch(function (err) {
         return console.error(err.toString());
     });
-    
-    var att1 = messageHistory;
-    var att2 = resultReturned;
-    debugger
     document.getElementById("sendButton").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
 });
 
+function populateHistory(messageHistory) {
+    for (var message of messageHistory) {
+        var userName = message.userName;
+        var li = document.createElement("li");
+        li.textContent = message.userName +": "+ message.messageText;
+        document.getElementById("messagesList").appendChild(li);
+    }
+}
+
 document.getElementById("sendButton").addEventListener("click", function (event) {
+    resultReturned
     var user = document.getElementById("userInput").value;
     var message = document.getElementById("messageInput").value;
     connection.invoke("SendMessage", user, message).catch(function (err) {

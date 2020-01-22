@@ -22,7 +22,6 @@ namespace SignalRChatServer.Hubs
 
         public Message[] GetHistory()
         {
-           
            return _chatDictionarySingleton.GetAllMessages().ToArray();
         }
 
