@@ -25,9 +25,8 @@ connection.start().then(async function () {
 
 function populateHistory(messageHistory) {
     for (var message of messageHistory) {
-        var userName = message.userName;
         var li = document.createElement("li");
-        li.textContent = message.userName +": "+ message.messageText;
+        li.textContent = message.userName + ": " + message.messageText;
         document.getElementById("messagesList").appendChild(li);
     }
 }

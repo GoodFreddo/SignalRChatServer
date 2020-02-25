@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace SignalRChatServer.Singletons
 {
-    public interface IChatListSingleton {
+    public interface IChatHistoryListSingleton {
         void AddMessage(Message message);
         List<Message> GetAllMessages();
     }
-    public class ChatListSingleton : IChatListSingleton
+    public class ChatHistoryListSingleton : IChatHistoryListSingleton
     {
         List<Message> chatHistory = new List<Message>();
 
