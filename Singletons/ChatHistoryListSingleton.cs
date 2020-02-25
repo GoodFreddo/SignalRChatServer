@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SignalRChatServer.Singletons
 {
-    public interface IChatHistoryListSingleton {
+    public interface IChatHistoryListSingleton
+    {
         void AddMessage(Message message);
         List<Message> GetAllMessages();
     }

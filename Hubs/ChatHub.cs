@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using SignalRChatServer.Singletons;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SignalRChatServer.Hubs
@@ -22,7 +19,7 @@ namespace SignalRChatServer.Hubs
 
         public Message[] GetHistory()
         {
-           return _chatHistoryListSingleton.GetAllMessages().ToArray();
+            return _chatHistoryListSingleton.GetAllMessages().ToArray();
         }
 
     }

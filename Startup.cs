@@ -34,8 +34,8 @@ namespace SignalRChatServer
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR();
-            services.AddSingleton<IChatHistoryListSingleton,ChatHistoryListSingleton>();
-            
+            services.AddSingleton<IChatHistoryListSingleton, ChatHistoryListSingleton>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,13 +55,13 @@ namespace SignalRChatServer
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            
+
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chatHub");
-                
+
             });
-            app.UseMvc(routes => routes.MapRoute("chatHistoryApi","api/{controller}"));
+            app.UseMvc(routes => routes.MapRoute("chatHistoryApi", "api/{controller}"));
         }
     }
 }

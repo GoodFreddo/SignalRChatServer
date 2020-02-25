@@ -1,6 +1,7 @@
 ﻿namespace SignalRChatServer.Singletons
 {
-    public class Message {
+    public class Message
+    {
         public Message(string UserName, string MessageText)
         {
             this.UserName = UserName;
