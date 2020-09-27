@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using SignalRChatServer.Singletons;
-using System;
+
+
 
 namespace SignalRChatServer.Controllers
 {
@@ -25,14 +25,17 @@ namespace SignalRChatServer.Controllers
 
         //POST api/chatcontroller
         [HttpPost]
-        public JsonResult PostChatMessage(Message message)
+        public ActionResult PostChatMessage(Message message)
         {
             {
-                if (string.IsNullOrEmpty(message.UserName)) { return new JsonResult("Needs a name mate."); }
-                if (string.IsNullOrEmpty(message.MessageText)) { return new JsonResult("Add a message please"); }
+                if (string.IsNullOrEmpty(message.UserName))
+                {
+                    return BadRequest("Needs a name mate");
+                }
+                if (string.IsNullOrEmpty(message.MessageText)) { return BadRequest("Add a message please"); }
                 chatListSingleton.AddMessage(message);
-                return new JsonResult("Message Added");
-            } 
+                return new OkObjectResult("Message Added");
+            }
         }
     }
 }
